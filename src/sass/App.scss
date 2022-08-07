@@ -1,0 +1,262 @@
+//Color palettes
+$colors: (
+	"surface": #f5f5f5,
+	"primary-text": #212121,
+	"secondary-text": #1976d2,
+	"link-text": #212121
+);
+body,
+html,
+.app {
+	--sans: -apple-system, blinkmacsystemfont, "Segoe UI", roboto, oxygen, ubuntu,
+		cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+	&.dark {
+		--surface: #243447;
+		--primary-text: #ffffff;
+		--secondary-text: #ec3479;
+		--link-text: #ed4886;
+	}
+
+	&.light {
+		--surface: #f5f5f5;
+		--primary-text: #212121;
+		--secondary-text: #1976d2;
+		--link-text: #212121;
+	}
+}
+
+@mixin color-var($property, $color) {
+	#{$property}: map-get($colors, "#{$color}");
+	#{$property}: var(--#{$color}, map-get($colors, "#{$color}"));
+}
+//General Styling
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+body,
+html,
+.app {
+	margin: 0;
+	height: 100%;
+	font-size: 1rem;
+	line-height: 1.4rem;
+	font-family: var(--sans);
+	@include color-var(background-color, surface);
+	@include color-var(color, primary-text);
+}
+
+p,
+blockquote,
+li {
+	text-align: justify;
+	line-height: 1.5rem;
+}
+
+blockquote {
+	position: relative;
+	padding: 2rem 0;
+	width: 100%;
+	margin: 40px auto;
+	border-top: solid 3px;
+	border-bottom: solid 3px;
+	font-size: 1.2rem;
+	font-style: italic;
+	@include color-var(border-color, secondary-text);
+}
+
+blockquote:after {
+	position: absolute;
+	content: "”";
+	@include color-var(color, secondary-text);
+	font-size: 8rem;
+	bottom: -40px;
+	right: 10px;
+}
+
+a,
+a:link,
+a:visited {
+	@include color-var(color, link-text);
+}
+
+//Toggle related styles
+form {
+	.description {
+		text-align: center;
+		margin-bottom: 1rem;
+	}
+	.switch {
+		position: relative;
+		width: 18rem;
+		height: 3rem;
+		margin: 0 auto;
+		font-size: 0;
+
+		input {
+			position: absolute;
+			top: 0;
+			z-index: 2;
+			opacity: 0;
+			cursor: pointer;
+			height: 3rem;
+			width: 6rem;
+			left: 6rem;
+			margin: 0;
+
+			&:checked {
+				z-index: 1;
+
+				~ .toggle-outside .toggle-inside {
+					left: 0.25rem;
+				}
+
+				+ label {
+					opacity: 1;
+					cursor: default;
+				}
+			}
+
+			&:not(:checked) + label:hover {
+				opacity: 0.5;
+			}
+		}
+
+		label {
+			@include color-var(color, primary-text);
+			opacity: 0.33;
+			transition: opacity 0.25s ease;
+			cursor: pointer;
+			font-size: 1rem;
+			line-height: 3rem;
+			display: inline-block;
+			width: 6rem;
+			height: 100%;
+			margin: 0;
+			text-align: center;
+
+			&:last-of-type {
+				margin-left: 6rem;
+			}
+		}
+
+		.toggle-outside {
+			height: 100%;
+			border-radius: 2rem;
+			padding: 0.25rem;
+			overflow: hidden;
+			transition: 0.5s ease all;
+			background: #fff;
+			position: absolute;
+			width: 6rem;
+			left: 6rem;
+			box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+		}
+
+		.toggle-inside {
+			border-radius: 5rem;
+			position: absolute;
+			transition: 0.25s ease all;
+			height: 2.5rem;
+			width: 2.5rem;
+			background-color: #f0ce0e;
+			background-image: url(../assets/sun.svg);
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		input ~ input:checked ~ .toggle-outside .toggle-inside {
+			left: 3.25rem;
+
+			background: #192432;
+			background-image: url(../assets/moon.svg);
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		input#off:focus ~ .toggle-outside .toggle-inside {
+			background: #192432;
+
+			background-image: url(../assets/moon.svg);
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+
+		input#on:focus ~ .toggle-outside .toggle-inside {
+			background-color: #ff5722;
+			background-image: url(../assets/sun.svg);
+			background-repeat: no-repeat;
+			background-position: center center;
+		}
+	}
+}
+
+//Grid and example layout styles
+.wrapper {
+	margin: 0 auto;
+	padding: 1.2rem;
+	display: grid;
+	justify-content: start;
+	align-content: start;
+	gap: 0 30px;
+	grid-template-areas:
+		"widgets"
+		"header"
+		"content"
+		"sidebar"
+		"footer";
+
+	.main-head {
+		grid-area: header;
+		font-size: 1.2rem;
+		padding: 1rem 0;
+		@include color-var(color, secondary-text);
+
+		h1 {
+			border-bottom: 3px solid;
+			@include color-var(border-color, secondary-text);
+			line-height: 3.5rem;
+			padding-bottom: 1rem;
+		}
+	}
+
+	.head-widgets {
+		grid-area: widgets;
+		padding: 1rem 0;
+	}
+
+	.content {
+		grid-area: content;
+		padding-bottom: 2rem;
+	}
+
+	.side {
+		grid-area: sidebar;
+
+		p {
+			text-align: left;
+		}
+	}
+
+	.main-footer {
+		grid-area: footer;
+		padding: 2rem 0;
+		text-align: center;
+		border-top: 1px solid;
+		@include color-var(border-color, primary-text);
+		font-size: 0.9rem;
+	}
+
+	// Large devices (desktops, 992px and up)
+	@media (min-width: 992px) {
+		max-width: 920px;
+		grid-template-columns: 8fr 4fr;
+		grid-template-areas:
+			"header widgets"
+			"content sidebar"
+			"footer footer";
+	}
+}
