@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/dark-mode-switcher-react/static/css/main.0055cee7.css",
-    "main.js": "/dark-mode-switcher-react/static/js/main.9d8326f4.js",
+    "main.css": "/dark-mode-switcher-react/static/css/main.1a31bd19.css",
+    "main.js": "/dark-mode-switcher-react/static/js/main.eee61988.js",
     "static/js/787.b79d6148.chunk.js": "/dark-mode-switcher-react/static/js/787.b79d6148.chunk.js",
     "index.html": "/dark-mode-switcher-react/index.html",
     "static/media/sun.svg": "/dark-mode-switcher-react/static/media/sun.7012add1ef75ed86c3c7.svg",
     "static/media/moon.svg": "/dark-mode-switcher-react/static/media/moon.2e94e618f2c6bf033e0b.svg",
-    "main.0055cee7.css.map": "/dark-mode-switcher-react/static/css/main.0055cee7.css.map",
-    "main.9d8326f4.js.map": "/dark-mode-switcher-react/static/js/main.9d8326f4.js.map",
+    "main.1a31bd19.css.map": "/dark-mode-switcher-react/static/css/main.1a31bd19.css.map",
+    "main.eee61988.js.map": "/dark-mode-switcher-react/static/js/main.eee61988.js.map",
     "787.b79d6148.chunk.js.map": "/dark-mode-switcher-react/static/js/787.b79d6148.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0055cee7.css",
-    "static/js/main.9d8326f4.js"
+    "static/css/main.1a31bd19.css",
+    "static/js/main.eee61988.js"
   ]
 }
