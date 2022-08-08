@@ -5,6 +5,7 @@ $colors: (
 	"secondary-text": #1976d2,
 	"link-text": #212121
 );
+
 body,
 html,
 .app {
@@ -12,10 +13,10 @@ html,
 		cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
 	&.dark {
-		--surface: #243447;
-		--primary-text: #ffffff;
-		--secondary-text: #ec3479;
-		--link-text: #ed4886;
+		--surface: #342b2d;
+		--primary-text: #e2e1e1;
+		--secondary-text: #48c3fc;
+		--link-text: #9ddaf7;
 	}
 
 	&.light {
@@ -30,6 +31,7 @@ html,
 	#{$property}: map-get($colors, "#{$color}");
 	#{$property}: var(--#{$color}, map-get($colors, "#{$color}"));
 }
+
 //General Styling
 *,
 *:before,
@@ -84,112 +86,156 @@ a:visited {
 }
 
 //Toggle related styles
-form {
-	.description {
-		text-align: center;
-		margin-bottom: 1rem;
+.switch_wrappper {
+	position: relative;
+
+	//tooltip related styles
+	&:hover {
+		.tooltiptext {
+			visibility: visible;
+			opacity: 1;
+		}
 	}
-	.switch {
-		position: relative;
-		width: 18rem;
-		height: 3rem;
-		margin: 0 auto;
-		font-size: 0;
 
-		input {
+	.tooltiptext {
+		margin-top: 5px;
+		visibility: hidden;
+		background-color: #949393;
+		width: 250px;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		padding: 5px;
+		position: absolute;
+		z-index: 1;
+		top: 125%;
+		left: 50%;
+		margin-left: -125px;
+		opacity: 0;
+		transition: opacity 0.3s;
+		font-size: 0.8rem;
+
+		&::after {
+			content: "";
 			position: absolute;
-			top: 0;
-			z-index: 2;
-			opacity: 0;
-			cursor: pointer;
-			height: 3rem;
-			width: 6rem;
-			left: 6rem;
-			margin: 0;
-
-			&:checked {
-				z-index: 1;
-
-				~ .toggle-outside .toggle-inside {
-					left: 0.25rem;
-				}
-
-				+ label {
-					opacity: 1;
-					cursor: default;
-				}
-			}
-
-			&:not(:checked) + label:hover {
-				opacity: 0.5;
-			}
+			bottom: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color:  transparent transparent #949393 transparent;
 		}
+	}
 
-		label {
-			@include color-var(color, primary-text);
-			opacity: 0.33;
-			transition: opacity 0.25s ease;
-			cursor: pointer;
-			font-size: 1rem;
-			line-height: 3rem;
-			display: inline-block;
-			width: 6rem;
-			height: 100%;
-			margin: 0;
+	form {
+		.description {
 			text-align: center;
+			margin-bottom: 1rem;
+		}
 
-			&:last-of-type {
-				margin-left: 6rem;
+		.switch {
+			position: relative;
+			width: 18rem;
+			height: 3rem;
+			margin: 0 auto;
+			font-size: 0;
+
+			input {
+				position: absolute;
+				top: 0;
+				z-index: 2;
+				opacity: 0;
+				cursor: pointer;
+				height: 3rem;
+				width: 6rem;
+				left: 6rem;
+				margin: 0;
+
+				&:checked {
+					z-index: 1;
+
+					~.toggle-outside .toggle-inside {
+						left: 0.25rem;
+					}
+
+					+label {
+						opacity: 1;
+						cursor: default;
+					}
+				}
+
+				&:not(:checked)+label:hover {
+					opacity: 0.5;
+				}
 			}
-		}
 
-		.toggle-outside {
-			height: 100%;
-			border-radius: 2rem;
-			padding: 0.25rem;
-			overflow: hidden;
-			transition: 0.5s ease all;
-			background: #fff;
-			position: absolute;
-			width: 6rem;
-			left: 6rem;
-			box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
-		}
+			label {
+				@include color-var(color, primary-text);
+				opacity: 0.33;
+				transition: opacity 0.25s ease;
+				cursor: pointer;
+				font-size: 1rem;
+				line-height: 3rem;
+				display: inline-block;
+				width: 6rem;
+				height: 100%;
+				margin: 0;
+				text-align: center;
 
-		.toggle-inside {
-			border-radius: 5rem;
-			position: absolute;
-			transition: 0.25s ease all;
-			height: 2.5rem;
-			width: 2.5rem;
-			background-color: #f0ce0e;
-			background-image: url(../assets/sun.svg);
-			background-repeat: no-repeat;
-			background-position: center center;
-		}
+				&:last-of-type {
+					margin-left: 6rem;
+				}
+			}
 
-		input ~ input:checked ~ .toggle-outside .toggle-inside {
-			left: 3.25rem;
+			.toggle-outside {
+				height: 100%;
+				border-radius: 2rem;
+				padding: 0.25rem;
+				overflow: hidden;
+				transition: 0.5s ease all;
+				background: #fff;
+				position: absolute;
+				width: 6rem;
+				left: 6rem;
+				box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+			}
 
-			background: #192432;
-			background-image: url(../assets/moon.svg);
-			background-repeat: no-repeat;
-			background-position: center center;
-		}
+			.toggle-inside {
+				border-radius: 5rem;
+				position: absolute;
+				transition: 0.25s ease all;
+				height: 2.5rem;
+				width: 2.5rem;
+				background-color: #f0ce0e;
+				background-image: url(../assets/sun.svg);
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
 
-		input#off:focus ~ .toggle-outside .toggle-inside {
-			background: #192432;
+			input~input:checked~.toggle-outside .toggle-inside {
+				left: 3.25rem;
 
-			background-image: url(../assets/moon.svg);
-			background-repeat: no-repeat;
-			background-position: center center;
-		}
+				background: #192432;
+				background-image: url(../assets/moon.svg);
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
 
-		input#on:focus ~ .toggle-outside .toggle-inside {
-			background-color: #ff5722;
-			background-image: url(../assets/sun.svg);
-			background-repeat: no-repeat;
-			background-position: center center;
+			input#off:focus~.toggle-outside .toggle-inside {
+				background: #192432;
+				box-shadow: 1px 1px 1px 1px rgba(100, 100, 100, 0.2);
+				background-image: url(../assets/moon.svg);
+				background-repeat: no-repeat;
+				background-position: center center;
+			}
+
+			input#on:focus~.toggle-outside .toggle-inside {
+				background-color: #ff5722;
+				background-image: url(../assets/sun.svg);
+				background-repeat: no-repeat;
+				background-position: center center;
+				box-shadow: 1px 1px 1px 1px rgba(100, 100, 100, 0.2);
+			}
 		}
 	}
 }
@@ -206,7 +252,6 @@ form {
 		"widgets"
 		"header"
 		"content"
-		"sidebar"
 		"footer";
 
 	.main-head {
@@ -227,19 +272,36 @@ form {
 		grid-area: widgets;
 		padding: 1rem 0;
 	}
+	
 
-	.content {
+
+	.article_wrapper {
+		display: grid;
 		grid-area: content;
 		padding-bottom: 2rem;
-	}
+		grid-template-columns: 1fr;
+		gap: 0 30px;
 
-	.side {
-		grid-area: sidebar;
-
-		p {
-			text-align: left;
+		article {
+			display: block;
 		}
+
+		aside {
+			display: block;
+
+			p {
+				text-align: left;
+			}
+		}
+		// Large devices (desktops, 992px and up)
+		
+		@media (min-width: 992px) {
+			grid-template-columns: 8fr 4fr;
+		}
+
 	}
+
+	
 
 	.main-footer {
 		grid-area: footer;
@@ -256,7 +318,7 @@ form {
 		grid-template-columns: 8fr 4fr;
 		grid-template-areas:
 			"header widgets"
-			"content sidebar"
+			"content content"
 			"footer footer";
 	}
 }
