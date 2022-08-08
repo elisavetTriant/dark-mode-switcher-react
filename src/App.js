@@ -1,23 +1,34 @@
-import Switcher from './components/Switcher';
-import './sass/App.scss';
-import React, { useState } from 'react';
+import Switcher from './components/Switcher'
+import './sass/App.scss'
+import { storageAvailable } from './utils/helpers'
+import React, { useState, useEffect } from 'react'
 
 
 function App() {
 
-  const [darkMode, setDarkMode] = useState(false)
+  const initialState = (storageAvailable('localStorage') && localStorage.getItem('dark-mode-test') && JSON.parse(localStorage.getItem('dark-mode-test')).darkModeOn) ? true : false
 
-  const toggleDarkMode = (e) =>{
-		console.log(e.currentTarget.value);
-		// Switch to Dark Mode
-		if (e.currentTarget.value === "off") {	
+  const [darkMode, setDarkMode] = useState(initialState)
+
+  const toggleDarkMode = (e) => {
+    // Switch to Dark Mode
+    if (e.currentTarget.value === "off") {
       setDarkMode(true)
-			return
-		}
-		/* Light Mode */
-    setDarkMode(false);
-	};
+      return
+    }
+    /* Light Mode */
+    setDarkMode(false)
+  }
 
+  useEffect(() => {
+    // Sets the user's preference in local storage for
+    if (storageAvailable('localStorage')) {
+      const storeMe = {
+        darkModeOn: darkMode
+      }
+      localStorage.setItem('dark-mode-test', JSON.stringify(storeMe))
+    }
+  }, [darkMode]);
 
 
   return (
@@ -41,13 +52,13 @@ function App() {
           <h2>Information</h2>
           <p>This small <a href="https://reactjs.org/" target="_blank" rel="noreferrer">ReactJs Application</a> is an adaptation to React from a pen that showcases an on and off microinteraction, which is the <a href="https://codepen.io/elisavetTriant/pen/xxgMJMa" target="_blank" rel="noreferrer">dark/light mode switching of the site's theme</a>. You can find at that pen a different approach, where a data attribute is used instead of React's State Handling, in vanilla JavaScript.</p>
           <p>You can find the <a href="https://github.com/elisavetTriant/dark-mode-switcher-react" target="_blank" rel="noreferrer">source code at this repository</a>.</p>
-          
+
           <h2>Credits</h2>
           <p>Read about <a href="https://material.io/design/color/the-color-system.html#color-theme-creation" target="_blank" rel="noreferrer">Theming</a> and the <a href="https://material.io/design/color/dark-theme.html" target="_blank" rel="noreferrer">Dark theme</a> on <a href="https://material.io/" target="_blank" rel="noreferrer">Material Design</a>.</p>
           <p>Special thanks to Ryan Feigenbaum for his excellent article on <a href="https://ryanfeigenbaum.com/dark-mode/" target="_blank" rel="noreferrer">Dark Mode Toggle</a>.</p>
           <p>Cheers to Nick Bottomley
             for his pen on <a href="https://codepen.io/nickbottomley/pen/uhfmn" target="_blank" rel="noreferrer">On-Off Switches</a>.</p>
-          
+
         </aside>
         <footer className="main-footer">
           <p>Made with love by <a href="https://elissavet.me" target="_blank" rel="noreferrer">Elissavet Triantafyllopoulou</a>.</p>
